@@ -1,4 +1,5 @@
 Rails.application.configure do
+  config.logger = Logger.new(config.paths["log"].first, 'daily') # 或 weekly,monthly
   # Settings specified here will take precedence over those in config/application.rb.
 
   # Code is not reloaded between requests.

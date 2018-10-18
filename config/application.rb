@@ -29,5 +29,7 @@ module MedusaClient
 
     # Don't generate system test files.
     config.generators.system_tests = nil
+    config.time_zone = 'Beijing'
+    config.active_record.default_timezone = :local
   end
 end
