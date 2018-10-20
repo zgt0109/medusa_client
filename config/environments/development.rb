@@ -1,4 +1,5 @@
 Rails.application.configure do
+  config.file_watcher = ActiveSupport::EventedFileUpdateChecker
   config.logger = Logger.new(config.paths["log"].first, 'daily') # 或 weekly,monthly
   # Settings specified here will take precedence over those in config/application.rb.
 
