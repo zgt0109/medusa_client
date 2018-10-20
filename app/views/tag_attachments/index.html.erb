@@ -1,0 +1,22 @@
+<%= render 'head'  %>
+
+<div class="page-header">
+  <h1><%=t '.title', :default => "版本号列表" %></h1>
+</div>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th width="10%">文件名</th>
+      <th width="20%">所属目录</th>
+      <th width="50%" class="text-left">文件URL</th>
+      <th width="20%">操作</th>
+    </tr>
+  </thead>
+  <tbody id="tagsTableTbody">
+    <%= render @tag_attachments  %>
+  </tbody>
+</table>
+
+<%= link_to new_tag_attachment_path(tag_id: @tag.id), class: "btn btn-primary f-s-12" do %>
+  <i class="fa fa-plus m-r-xs"></i>添加
+<% end %>

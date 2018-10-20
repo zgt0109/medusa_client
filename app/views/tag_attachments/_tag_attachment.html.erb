@@ -1,0 +1,9 @@
+<tr id="tag_attachment_<%= tag_attachment.id %>">
+  <td id="ttag_attachment_<%= tag_attachment.id %>_name"><%= tag_attachment.name %></td>
+  <td id="tag_attachment_<%= tag_attachment.id %>_attachment_path" class="text-left"><%= tag_attachment.attachment_path %></td>
+  <td id="tag_attachmentg_<%= tag_attachment.id %>_url" class="text-left"><%= "#{ENV['QINIU_DOMAIN']}/#{tag_attachment.file.key}" %></td>
+  <td>
+    <%= link_to "编辑", edit_tag_attachment_path(tag_attachment), class: 'btn btn-xs btn-default' %>
+    <%= link_to "删除", tag_attachment_path(tag_attachment), method: :delete, class: 'btn btn-xs btn-danger' %>
+  </td>
+</tr>

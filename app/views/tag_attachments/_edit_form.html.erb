@@ -1,0 +1,27 @@
+<%= form_for @tag_attachment, method: :put, url: tag_attachment_path(tag_id: @tag.id) do |f| %>
+    <div class="form-group">
+        <%= f.label "目录", :class => 'control-label' %>
+    <div class="controls">
+        <%= f.text_field :attachment_path, :class => 'form-control', :placeholder => "请输入文件层级目录", required: true, autofocus: true %>
+    </div>
+    </div>
+
+    <div class="form-group">
+        <%= f.label "备注", :class => 'control-label' %>
+    <div class="controls">
+        <%= f.text_area :remark, :class => 'form-control' %>
+    </div>
+    </div>
+
+    <div class="form-group">
+        <%= f.label "上传文件", :class => 'control-label' %>
+    <div class="controls">
+        <%= f.file_field :file, :class => 'form-control' %>
+    </div>
+    </div>
+
+    <div class="modal-footer">
+    <%= f.submit '保存', class: "btn btn-primary", data: { disable_with: '请稍等' } %>
+    <a class="btn btn-default" href="/tag_attachments?tag_id=<%= @tag.id %>">返回</a>
+    </div>
+<% end %>

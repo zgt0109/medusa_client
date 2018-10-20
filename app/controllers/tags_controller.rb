@@ -43,10 +43,10 @@ class TagsController < ApplicationController
     @valid =  @tag.destroy
 
     if @valid
-      @message = "删除成功"
       redirect_to tags_path(product_id: @tag.product_id), notice: '删除成功'
     else
       @message = @tag.errors.full_messages.join(',')
+      redirect_to tags_path(product_id: @tag.product_id), notice: '删除失败'
     end
   end
 

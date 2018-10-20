@@ -13,9 +13,10 @@ default: &default
   adapter: mysql2
   encoding: utf8
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  username: root
-  password:
-  socket: /tmp/mysql.sock
+  username: <%= ENV['MEDUSA_CLIENT_DB_USERNAME'] %>
+  password: <%= ENV['MEDUSA_CLIENT_DB_PASSWORD'] %>
+  host: <%= ENV['MEDUSA_CLIENT_DB_HOST'] %>
+  # socket: /tmp/mysql.sock
 
 development:
   <<: *default
@@ -50,5 +51,3 @@ test:
 production:
   <<: *default
   database: medusa_client_production
-  username: medusa_client
-  password: <%= ENV['MEDUSA_CLIENT_DATABASE_PASSWORD'] %>

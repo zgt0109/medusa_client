@@ -47,8 +47,6 @@ GEM
       tzinfo (~> 1.1)
     airbrussh (1.3.0)
       sshkit (>= 1.6.1, != 1.7.0)
-    ancestry (3.0.2)
-      activerecord (>= 3.2.0)
     annotate (2.7.4)
       activerecord (>= 3.2, < 6.0)
       rake (>= 10.4, < 13.0)
@@ -279,7 +277,6 @@ PLATFORMS
 
 DEPENDENCIES
   activestorage_qiniu (~> 0.1.9)
-  ancestry (~> 3.0, >= 3.0.2)
   annotate (~> 2.7, >= 2.7.4)
   bootsnap (>= 1.1.0)
   bootstrap-sass (~> 3.3.7)
