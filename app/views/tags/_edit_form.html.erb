@@ -1,0 +1,25 @@
+<%= form_for @tag, method: :put, url: tag_path(product_id: @product.id) do |f| %>
+    <div class="form-group">
+    <%= f.label "版本名称", :class => 'control-label' %>
+    <div class="controls">
+        <%= f.text_field :name, :class => 'form-control', :placeholder => "版本名称", required: true, autofocus: true %>
+    </div>
+    </div>
+    <div class="form-group">
+    <%= f.label "是否发布", :class => 'control-label' %>
+    <div class="controls">
+        <%= select_tag(:is_public, options_for_select([['是', 1], ['否', 0]], 1), :class => 'form-control') %>
+    </div>
+    </div>
+    <div class="form-group">
+    <%= f.label "IP白名单", :class => 'control-label' %>
+    <div class="controls">
+        <%= f.text_area :remote_ip, :class => 'form-control' %>
+    </div>
+    <p> <b>*</b> IP地址最多10个，以英文','分割</p>
+    </div>
+    <div class="modal-footer">
+    <%= f.submit '保存', class: "btn btn-primary", data: { disable_with: '请稍等' } %>
+    <a class="btn btn-default" href="/tags?product_id=<%= @product.id %>">返回</a>
+    </div>
+<% end %>

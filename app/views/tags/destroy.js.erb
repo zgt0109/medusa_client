@@ -1,0 +1,7 @@
+<% if @valid %>
+  $("#tagsTableTbody").html("<%= j(render partial: "tags/tag", collection: @tags, as: :tag, locals: {product: @product}) %>")
+  $('#tag_<%= @tag.id %>').fadeOut();
+  new PNotify({title: "提示", text: "<%= @message %>", delay: 3800, type: "success"});
+<% else %>
+  new PNotify({title: "提示", text: "<%= @message %>", delay: 3800, type: "error"});
+<% end %>

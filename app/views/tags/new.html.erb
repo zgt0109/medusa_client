@@ -1,0 +1,18 @@
+<%- model_class = Product -%>
+<div class="page-header">
+  <%= link_to t('.back', :default => t("helpers.links.back")),
+              products_path, :class => 'btn btn-default'  %>
+</div>
+
+<dl class="dl-horizontal">
+  <dt><strong>软件名:</strong></dt>
+  <dd><%= @product.name %></dd>
+</dl>
+<hr/>
+
+
+<div class="page-header">
+  <h1>新增版本</h1>
+</div>
+
+<%= render :partial => 'form' %>

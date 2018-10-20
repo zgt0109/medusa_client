@@ -1,4 +1,5 @@
 class ProductsController < ApplicationController
+  before_action :require_login
   before_action :set_product, only: [:show, :edit, :update, :destroy]
 
   # GET /products
@@ -10,6 +11,7 @@ class ProductsController < ApplicationController
   # GET /products/1
   # GET /products/1.json
   def show
+    @tags = @product.tags
   end
 
   # GET /products/new

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_18_093948) do
+ActiveRecord::Schema.define(version: 2018_10_19_072340) do
 
   create_table "products", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", comment: "客户端软件产品", force: :cascade do |t|
     t.string "name", limit: 50, comment: "软件名称"
@@ -19,11 +19,30 @@ ActiveRecord::Schema.define(version: 2018_10_18_093948) do
     t.index ["name"], name: "index_products_on_name"
   end
 
-  create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", comment: "管理员", force: :cascade do |t|
-    t.string "name", limit: 50
-    t.string "password_digest"
+  create_table "tags", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", comment: "版本管理", force: :cascade do |t|
+    t.bigint "product_id", comment: "客户端产品id"
+    t.string "name", limit: 50, comment: "版本名称"
+    t.boolean "is_public", default: false, comment: "是否发布"
+    t.string "remote_ip", comment: "ip白名单"
+    t.datetime "deleted_at", comment: "删除时间"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["product_id"], name: "index_tags_on_product_id"
   end
 
+  create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", comment: "管理员", force: :cascade do |t|
+    t.string "name", limit: 50
+    t.string "email", limit: 100, comment: "用户名"
+    t.string "crypted_password", comment: "密码"
+    t.string "salt"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "activation_state"
+    t.string "activation_token"
+    t.datetime "activation_state_expires_at"
+    t.index ["activation_token"], name: "index_users_on_activation_token"
+    t.index ["email"], name: "index_users_on_email", unique: true
+  end
+
+  add_foreign_key "tags", "products"
 end
