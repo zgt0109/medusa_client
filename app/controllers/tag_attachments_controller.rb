@@ -1,4 +1,5 @@
 class TagAttachmentsController < ApplicationController
+  before_action :require_login
   before_action :tag_attachment, only: [:show, :edit,:update, :destroy]
 
   def index
