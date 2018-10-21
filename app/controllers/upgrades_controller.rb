@@ -1,0 +1,80 @@
+class UpgradesController < ApplicationController
+  before_action :set_product, only: [:check, :download]
+
+  def check
+    return render_json(code: -1, message: "客户端软件不存在", status: 200) if @product.blank?
+    tags = @product.tags.where(is_public: true)
+    remote_ips = tags.find_by(name: params[:version]).try(:remote_ip)
+    if remote_ips.blank?
+      tag_version = tags.pluck(:name)
+      if tag_version.include?(upgrade_params[:version])
+        if upgrade_params[:version] != tag_version.last
+          render_json(code: 0, message: "客户端需要更新", status: 200)
+        else
+          render_json(code: -1, message: "客户端已是最新版", status: 200)
+        end
+      else
+        render_json(code: -1, message: "版本不存在", status: 200)
+      end
+    else
+      if remote_ips.split(',').include?(request.remote_ip)
+        tag_version = tags.pluck(:name)
+        if tag_version.include?(upgrade_params[:version])
+          if upgrade_params[:version] != tag_version.last
+            render_json(code: 0, message: "客户端需要更新", status: 200)
+          else
+            render_json(code: -1, message: "客户端已是最新版", status: 200)
+          end
+        else
+          render_json(code: -1, message: "版本不存在", status: 200)
+        end
+      else
+        render_json(code: -1, message: "客户端ip不在白名单内", status: 200)
+      end
+      
+    end
+
+  end
+
+  def download
+    if @product.blank?
+      return render_json(code: -1, message: "客户端软件不存在", status: 200)
+    else
+      @tags = @product.tags.where(is_public: true).where.not(name: upgrade_params[:version])
+      if @tags.blank?
+        render json: []
+      else
+        _result = []
+        @tags.each do |tag|
+          tag_attachments = tag.tag_attachments
+          tag_attachments.each do |tag_attachment|
+              tag_hash = {
+                name: tag.product.name,
+                version: tag.name, 
+                tag_attachment: [
+                  {
+                    name: tag_attachment.name,
+                    url: "#{ENV['QINIU_DOMAIN']}/#{tag_attachment.file.key}",
+                    attachment_path: tag_attachment.attachment_path
+                  }
+                ]
+              }
+              _result << tag_hash
+          end
+        end
+
+        render json: _result
+      end
+      
+    end
+  end
+
+  private
+    def set_product
+      @product = Product.find_by(name: params[:name])
+    end
+
+    def upgrade_params
+      params.permit(:name, :version)
+    end
+end
