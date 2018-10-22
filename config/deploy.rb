@@ -2,7 +2,7 @@
 lock "~> 3.11.0"
 
 set :application, "medusa_client"
-set :repo_url, "git@github.com:zgt0109/medusa_client.git"
+set :repo_url, "git@120.55.242.229:zgt/medusa_client.git"
 
 # Default branch is :master
 ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
