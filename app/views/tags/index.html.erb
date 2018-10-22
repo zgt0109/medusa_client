@@ -27,6 +27,10 @@
   </tbody>
 </table>
 
+<div class="bs-component">
+  <%= will_paginate @tags, renderer: BootstrapPagination::Rails %>
+</div>
+
 <%= link_to new_tag_path(product_id: @product.id), class: "btn btn-primary f-s-12" do %>
   <i class="fa fa-plus m-r-xs"></i>添加
 <% end %>

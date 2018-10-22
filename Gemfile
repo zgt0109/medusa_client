@@ -50,6 +50,7 @@ gem 'sidekiq', '~> 5.1', '>= 5.1.3'
 gem 'paranoia', '~> 2.4', '>= 2.4.1'
 gem 'activestorage_qiniu', '~> 0.1.9'
 gem 'will_paginate', '~> 3.1', '>= 3.1.6'
+gem 'will_paginate-bootstrap'
 
 gem 'rails-i18n', '~> 5.1'
 

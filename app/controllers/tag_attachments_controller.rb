@@ -5,7 +5,7 @@ class TagAttachmentsController < ApplicationController
   def index
     @tag = Tag.find params[:tag_id]
     @product = @tag.product
-    @tag_attachments = @tag.tag_attachments
+    @tag_attachments = @tag.tag_attachments.page(params[:page] || 1).per_page(params[:per_page] || 10).order("id desc")
   end
 
   def show

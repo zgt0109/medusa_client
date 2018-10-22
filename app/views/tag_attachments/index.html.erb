@@ -17,6 +17,10 @@
   </tbody>
 </table>
 
+<div class="bs-component">
+  <%= will_paginate @tag_attachments, renderer: BootstrapPagination::Rails %>
+</div>
+
 <%= link_to new_tag_attachment_path(tag_id: @tag.id), class: "btn btn-primary f-s-12" do %>
   <i class="fa fa-plus m-r-xs"></i>添加
 <% end %>
