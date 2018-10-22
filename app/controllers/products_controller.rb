@@ -5,7 +5,7 @@ class ProductsController < ApplicationController
   # GET /products
   # GET /products.json
   def index
-    @products = Product.all
+    @products = Product.all.page(params[:page] || 1).per_page(params[:per_page] || 10).order("id desc")
   end
 
   # GET /products/1
@@ -30,7 +30,7 @@ class ProductsController < ApplicationController
 
     respond_to do |format|
       if @product.save
-        format.html { redirect_to @product, notice: '创建成功' }
+        format.html { redirect_to products_path, notice: '创建成功' }
         format.json { render :show, status: :created, location: @product }
       else
         format.html { render :new }
@@ -44,7 +44,7 @@ class ProductsController < ApplicationController
   def update
     respond_to do |format|
       if @product.update(product_params)
-        format.html { redirect_to @product, notice: '更新成功' }
+        format.html { redirect_to products_path, notice: '更新成功' }
         format.json { render :show, status: :ok, location: @product }
       else
         format.html { render :edit }
@@ -58,7 +58,7 @@ class ProductsController < ApplicationController
   def destroy
     @product.destroy
     respond_to do |format|
-      format.html { redirect_to products_url, notice: '删除成功' }
+      format.html { redirect_to products_path, notice: '删除成功' }
       format.json { head :no_content }
     end
   end
