@@ -4,7 +4,7 @@
 #
 #  id                  :bigint(8)        not null, primary key
 #  deleted_at(删除时间)    :datetime
-#  is_public(是否发布)     :boolean
+#  is_public(是否发布)     :boolean          default(FALSE)
 #  name(版本名称)          :string(50)
 #  remote_ip(ip白名单)    :string(255)
 #  created_at          :datetime         not null
@@ -13,6 +13,7 @@
 #
 # Indexes
 #
+#  index_tags_on_name        (name)
 #  index_tags_on_product_id  (product_id)
 #
 # Foreign Keys

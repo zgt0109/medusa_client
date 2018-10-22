@@ -40,29 +40,32 @@ class UpgradesController < ApplicationController
     if @product.blank?
       return render_json(code: -1, message: "客户端软件不存在", status: 200)
     else
-      @tags = @product.tags.where(is_public: true).where.not(name: upgrade_params[:version])
+      @tag = Tag.find_by_name(upgrade_params[:version])
+      return render_json(code: -1, message: "版本不存在", status: 200) if @tag.blank?
+      @tags = @product.tags.where(is_public: true).where.not(name: upgrade_params[:version]).where("id > ?", @tag.id).limit(1)
       if @tags.blank?
         render json: []
       else
         _result = []
         @tags.each do |tag|
+          _tag_attachment = []
           tag_attachments = tag.tag_attachments
           tag_attachments.each do |tag_attachment|
-              tag_hash = {
-                name: tag.product.name,
-                version: tag.name, 
-                tag_attachment: [
-                  {
-                    name: tag_attachment.name,
-                    url: "#{ENV['QINIU_DOMAIN']}/#{tag_attachment.file.key}",
-                    attachment_path: tag_attachment.attachment_path
-                  }
-                ]
-              }
-              _result << tag_hash
+            tag_attachment_hash = {
+              name: tag_attachment.name,
+              url: "#{ENV['QINIU_DOMAIN']}/#{tag_attachment.file.key}",
+              attachment_path: tag_attachment.attachment_path
+            }
+          _tag_attachment << tag_attachment_hash
           end
-        end
 
+          tag_hash = {
+            name: tag.product.name,
+            version: tag.name, 
+            tag_attachment: _tag_attachment
+          }
+          _result << tag_hash
+        end
         render json: _result
       end
       
