@@ -43,10 +43,8 @@ gem "therubyracer", platforms: :ruby
 
 # Bootstrap
 gem 'bootstrap-sass', '~> 3.3.7'
-gem 'bootswatch-rails'
 gem 'font-awesome-rails', '~> 4.7', '>= 4.7.0.4'
 gem 'sorcery', '~> 0.12.0'
-
 
 gem 'sidekiq', '~> 5.1', '>= 5.1.3'
 gem 'paranoia', '~> 2.4', '>= 2.4.1'
