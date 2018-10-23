@@ -5,6 +5,6 @@
   <td id="ttag_attachment_<%= tag_attachment.id %>_time"><%= tag_attachment.created_at.strftime('%Y-%m-%d %H:%M') %></td>
   <td>
     <%= link_to "编辑", edit_tag_attachment_path(tag_attachment), class: 'btn btn-xs btn-default' %>
-    <%= link_to "删除", tag_attachment_path(tag_attachment), method: :delete, class: 'btn btn-xs btn-danger' %>
+    <%= link_to "删除", tag_attachment_path(tag_attachment), method: :delete, 'data-confirm': "不考虑一下了?", class: 'btn btn-xs btn-danger' %>
   </td>
 </tr>
