@@ -5,36 +5,22 @@ class UpgradesController < ApplicationController
     return render_json(code: -1, message: "客户端软件不存在", status: 200) if @product.blank?
     tag = Tag.find_by_name(upgrade_params[:version])
     return render_json(code: -1, message: "版本不存在", status: 200) if tag.blank?
-    @tags = @product.tags.where(is_public: true).where.not(name: upgrade_params[:version]).where("id > ?", @tag.id).limit(1)
+    tags = @product.tags.where(is_public: true).where.not(name: upgrade_params[:version]).where("id > ?", tag.id).limit(1)
     remote_ips = tags.find_by(name: params[:version]).try(:remote_ip)
-    if remote_ips.blank?
-      tag_version = tags.pluck(:name)
-      if tag_version.include?(upgrade_params[:version])
-        if upgrade_params[:version] != tag_version.last
+
+    if tags.present?
+      if remote_ips.present?
+        if remote_ips.split(',').include?(request.remote_ip)
+          Rails.logger.info("请求的IP地址是：#{request.remote_ip}")
           render_json(code: 0, message: "客户端需要更新", status: 200)
         else
-          render_json(code: -1, message: "客户端已是最新版", status: 200)
+          render_json(code: -1, message: "客户端ip不在白名单内", status: 200)
         end
       else
-        render_json(code: -1, message: "版本不存在", status: 200)
+        render_json(code: 0, message: "客户端需要更新", status: 200)
       end
     else
-      if remote_ips.split(',').include?(request.remote_ip)
-        Rails.logger.info("请求的IP地址是：#{request.remote_ip}")
-        tag_version = tags.pluck(:name)
-        if tag_version.include?(upgrade_params[:version])
-          if upgrade_params[:version] != tag_version.last
-            render_json(code: 0, message: "客户端需要更新", status: 200)
-          else
-            render_json(code: -1, message: "客户端已是最新版", status: 200)
-          end
-        else
-          render_json(code: -1, message: "版本不存在", status: 200)
-        end
-      else
-        render_json(code: -1, message: "客户端ip不在白名单内", status: 200)
-      end
-      
+      render_json(code: -1, message: "客户端已是最新版", status: 200)
     end
 
   end
