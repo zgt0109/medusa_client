@@ -2,8 +2,9 @@
   <td id="tag_<%= tag.id %>_name"><%= link_to tag.name, tag_attachments_path(tag_id: tag.id) %></td>
   <td id="tag_<%= tag.id %>_is_public" class="text-left"><%= tag.return_yes_or_no(tag) %></td>
   <td id="tag_<%= tag.id %>_ip" class="text-left"><%= tag.remote_ip %></td>
-  <td id="tag_<%= tag.id %>_content" class="text-left"><%= simple_format(tag.content) %></td>
+  <td id="tag_<%= tag.id %>_content" class="text-left"><%= tag.content %></td>
   <td>
+    <%= link_to "附件", tag_attachments_path(tag_id: tag.id), class: 'btn btn-xs btn-default' %>
     <%= link_to "编辑", edit_tag_path(tag), class: 'btn btn-xs btn-default' %>
     <%= link_to "删除", tag_path(tag), method: :delete, 'data-confirm': "不考虑一下了?", class: 'btn btn-xs btn-danger' %>
   </td>
