@@ -23,7 +23,7 @@ class TagsController < ApplicationController
     if @tag.save
       redirect_to tags_path(product_id: @tag.product_id), notice: '新增成功'
     else
-      render 'new'
+      render :new
     end
   end
 
@@ -36,7 +36,7 @@ class TagsController < ApplicationController
     if @tag.update(_hash)
       redirect_to tags_path(product_id: @tag.product_id), notice: '编辑成功'
     else
-      render 'edit'
+      render :edit 
     end
   end
 

@@ -1,4 +1,19 @@
 <%= form_for @tag, method: :put, url: tag_path(product_id: @product.id) do |f| %>
+    <% if @tag.errors.any? %>
+        <div id="error_expl" class="panel panel-danger">
+        <div class="panel-heading">
+            <h3 class="panel-title"><%= pluralize(@tag.errors.count, "错误如下：") %></h3>
+        </div>
+        <div class="panel-body">
+            <ul>
+            <% @tag.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+            <% end %>
+            </ul>
+        </div>
+        </div>
+    <% end %>
+    
     <div class="form-group">
     <%= f.label "版本名称", :class => 'control-label' %>
     <div class="controls">

@@ -1,3 +1,8 @@
+<% 
+if @product.blank? 
+  @product = Product.find(params[:product_id])
+end
+%>
 <%- model_class = Product -%>
 <div class="page-header">
   <%= link_to t('.back', :default => t("helpers.links.back")),
