@@ -25,7 +25,7 @@ class SessionsController < ApplicationController
 
   private def auth_user
     if logged_in?
-      redirect_to root_path
+      redirect_to products_path
     end
   end
 end
