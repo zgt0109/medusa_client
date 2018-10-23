@@ -26,6 +26,7 @@ class Tag < ApplicationRecord
   acts_as_paranoid
 
   validates :name, presence: {message: "不能为空"}, uniqueness: { scope: :product_id, message: "已经存在"}
+  validates :content, presence: {message: "不能为空"}
   belongs_to :product
   has_many :tag_attachments
 

@@ -6,6 +6,7 @@ zh-CN:
     attributes:
       tag:
          name: 版本号
+         content: 更新内容
          is_public: 是否发布
          remote_ip: IP白名单
       product:
