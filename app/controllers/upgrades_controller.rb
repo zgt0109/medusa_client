@@ -3,7 +3,7 @@ class UpgradesController < ApplicationController
 
   def check
     return render_json(code: -1, message: "客户端软件不存在", status: 200) if @product.blank?
-    tag = Tag.find_by_name(upgrade_params[:version])
+    tag = Tag.find_by(product_id: @product.id,name: upgrade_params[:version])
     return render_json(code: -1, message: "版本不存在", status: 200) if tag.blank?
     tags = @product.tags.where(is_public: true).where.not(name: upgrade_params[:version]).where("id > ?", tag.id).limit(1)
     remote_ips = tags.first.try(:remote_ip)
@@ -28,7 +28,7 @@ class UpgradesController < ApplicationController
     if @product.blank?
       return render_json(code: -1, message: "客户端软件不存在", status: 200)
     else
-      @tag = Tag.find_by_name(upgrade_params[:version])
+      @tag = Tag.find_by(product_id: @product.id,name: upgrade_params[:version])
       return render_json(code: -1, message: "版本不存在", status: 200) if @tag.blank?
       @tags = @product.tags.where(is_public: true).where.not(name: upgrade_params[:version]).where("id > ?", @tag.id).limit(1)
       if @tags.blank?
