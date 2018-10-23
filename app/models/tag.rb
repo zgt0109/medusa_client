@@ -13,8 +13,9 @@
 #
 # Indexes
 #
-#  index_tags_on_name        (name)
-#  index_tags_on_product_id  (product_id)
+#  index_tags_on_name                 (name)
+#  index_tags_on_name_and_product_id  (name,product_id) UNIQUE
+#  index_tags_on_product_id           (product_id)
 #
 # Foreign Keys
 #
@@ -24,7 +25,7 @@
 class Tag < ApplicationRecord
   acts_as_paranoid
 
-  validates :name, presence: {message: "不能为空"}, uniqueness: {message: "已经存在"}
+  validates :name, presence: {message: "不能为空"}, uniqueness: { scope: :product_id, message: "已经存在"}
   belongs_to :product
   has_many :tag_attachments
 
