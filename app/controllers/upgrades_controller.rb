@@ -3,7 +3,9 @@ class UpgradesController < ApplicationController
 
   def check
     return render_json(code: -1, message: "客户端软件不存在", status: 200) if @product.blank?
-    tags = @product.tags.where(is_public: true)
+    tag = Tag.find_by_name(upgrade_params[:version])
+    return render_json(code: -1, message: "版本不存在", status: 200) if tag.blank?
+    @tags = @product.tags.where(is_public: true).where.not(name: upgrade_params[:version]).where("id > ?", @tag.id).limit(1)
     remote_ips = tags.find_by(name: params[:version]).try(:remote_ip)
     if remote_ips.blank?
       tag_version = tags.pluck(:name)
@@ -18,6 +20,7 @@ class UpgradesController < ApplicationController
       end
     else
       if remote_ips.split(',').include?(request.remote_ip)
+        Rails.logger.info("请求的IP地址是：#{request.remote_ip}")
         tag_version = tags.pluck(:name)
         if tag_version.include?(upgrade_params[:version])
           if upgrade_params[:version] != tag_version.last
