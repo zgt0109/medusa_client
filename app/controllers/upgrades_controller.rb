@@ -11,12 +11,12 @@ class UpgradesController < ApplicationController
       if remote_ips.present?
         if remote_ips.split(',').include?(request.remote_ip)
           Rails.logger.debug("请求的IP地址是：#{request.remote_ip}")
-          render_json(code: 0, message: "客户端需要更新", status: 200)
+          render json: {code: 0, message: "客户端需要更新", content: tags.first.try(:content)}, status: 200
         else
           render_json(code: -1, message: "客户端ip不在白名单内", status: 200)
         end
       else
-        render_json(code: 0, message: "客户端需要更新", status: 200)
+        render json: {code: 0, message: "客户端需要更新", content: tags.first.try(:content)}, status: 200
       end
     else
       render_json(code: -1, message: "客户端已是最新版", status: 200)
