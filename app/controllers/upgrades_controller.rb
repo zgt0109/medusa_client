@@ -42,7 +42,8 @@ class UpgradesController < ApplicationController
             tag_attachment_hash = {
               name: tag_attachment.name,
               url: "#{ENV['QINIU_DOMAIN']}/#{tag_attachment.file.key}",
-              attachment_path: tag_attachment.attachment_path
+              attachment_path: tag_attachment.attachment_path,
+              created_at: tag_attachment.created_at.strftime('%Y-%m-%d %H:%M')
             }
           _tag_attachment << tag_attachment_hash
           end

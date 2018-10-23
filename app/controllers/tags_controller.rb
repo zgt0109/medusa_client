@@ -59,6 +59,6 @@ class TagsController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def tag_params
-    params.require(:tag).permit(:product_id, :name, :is_public, :remote_ip)
+    params.require(:tag).permit(:product_id, :name, :content, :is_public, :remote_ip)
   end
 end

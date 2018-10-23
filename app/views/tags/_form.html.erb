@@ -33,6 +33,14 @@
     </div>
     <p> <b>*</b> IP地址最多10个，以英文','分割</p>
     </div>
+
+    <div class="form-group">
+    <%= f.label "版本更新内容", :class => 'control-label' %>
+    <div class="controls">
+        <%= f.text_area :content, :class => 'form-control', required: true, rows: 8 %>
+    </div>
+    </div>
+    
     <div class="modal-footer">
     <%= f.submit '保存', class: "btn btn-primary", data: { disable_with: '请稍等' } %>
     <a class="btn btn-default" href="/tags?product_id=<%= @product.id %>">返回</a>
