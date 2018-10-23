@@ -6,8 +6,7 @@ class UpgradesController < ApplicationController
     tag = Tag.find_by_name(upgrade_params[:version])
     return render_json(code: -1, message: "版本不存在", status: 200) if tag.blank?
     tags = @product.tags.where(is_public: true).where.not(name: upgrade_params[:version]).where("id > ?", tag.id).limit(1)
-    remote_ips = tags.find_by(name: params[:version]).try(:remote_ip)
-
+    remote_ips = tags.first.try(:remote_ip)
     if tags.present?
       if remote_ips.present?
         if remote_ips.split(',').include?(request.remote_ip)
