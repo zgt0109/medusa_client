@@ -2,37 +2,37 @@ class UpgradesController < ApplicationController
   before_action :set_product, only: [:check, :download]
 
   def check
-    return render_json(code: -1, message: "客户端软件不存在", status: 200) if @product.blank?
+    return render_json(code: "01", message: "客户端软件不存在", status: 200) if @product.blank?
     tag = Tag.find_by(product_id: @product.id,name: upgrade_params[:version])
-    return render_json(code: -1, message: "版本不存在", status: 200) if tag.blank?
+    return render_json(code: "02", message: "版本不存在", status: 200) if tag.blank?
     tags = @product.tags.where(is_public: true).where.not(name: upgrade_params[:version]).where("id > ?", tag.id).limit(1)
     remote_ips = tags.first.try(:remote_ip)
     if tags.present?
       if remote_ips.present?
         Rails.logger.debug("请求的IP地址是：#{request.remote_ip}")
         if remote_ips.split(',').include?(request.remote_ip)
-          render json: {code: 0, message: "客户端需要更新", content: tags.first.try(:content)}, status: 200
+          render json: {code: "00", message: "客户端需要更新", content: tags.first.try(:content)}, status: 200
         else
-          render_json(code: -1, message: "客户端ip不在白名单内", status: 200)
+          render_json(code: "03", message: "客户端ip不在白名单内", status: 200)
         end
       else
-        render json: {code: 0, message: "客户端需要更新", content: tags.first.try(:content)}, status: 200
+        render json: {code: "00", message: "客户端需要更新", content: tags.first.try(:content)}, status: 200
       end
     else
-      render_json(code: -1, message: "客户端已是最新版", status: 200)
+      render_json(code: "04", message: "客户端已是最新版", status: 200)
     end
 
   end
 
   def download
     if @product.blank?
-      return render_json(code: -1, message: "客户端软件不存在", status: 200)
+      return render_json(code: "01", message: "客户端软件不存在", status: 200)
     else
       @tag = Tag.find_by(product_id: @product.id,name: upgrade_params[:version])
-      return render_json(code: -1, message: "版本不存在", status: 200) if @tag.blank?
+      return render_json(code: "02", message: "版本不存在", status: 200) if @tag.blank?
       @tags = @product.tags.where(is_public: true).where.not(name: upgrade_params[:version]).where("id > ?", @tag.id).limit(1)
       if @tags.blank?
-        render json: []
+        return render_json(code: "04", message: "客户端已是最新版", status: 200)
       else
         _result = []
         @tags.each do |tag|
@@ -55,7 +55,8 @@ class UpgradesController < ApplicationController
           }
           _result << tag_hash
         end
-        render json: _result
+        render json: {code: "00", message: "成功获取附件列表", result: _result}, status: 200
+
       end
       
     end
