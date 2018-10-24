@@ -34,7 +34,7 @@ class UpgradesController < ApplicationController
       if @tags.blank?
         return render_json(code: "04", message: "客户端已是最新版", status: 200)
       else
-        _result = []
+        tag_hash = {code: "", version: "", tag_attachment: ""}
         @tags.each do |tag|
           _tag_attachment = []
           tag_attachments = tag.tag_attachments
@@ -53,9 +53,8 @@ class UpgradesController < ApplicationController
             version: tag.name, 
             tag_attachment: _tag_attachment
           }
-          _result << tag_hash
         end
-        render json: {code: "00", message: "成功获取附件列表", result: _result}, status: 200
+        render json: {code: "00", message: "成功获取附件列表", result: tag_hash}, status: 200
 
       end
       
