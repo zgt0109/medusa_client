@@ -10,7 +10,9 @@
       
       <ul class="nav navbar-nav navbar-right">
         <% if logged_in? %>
-          <li><%= link_to current_user.email %></li>
+          <li>
+          <a href="javascript:void(0)"><%= current_user.email %></a>
+          </li>
           <li><%= link_to "退出", logout_path, method: :delete %></li>
         <% end %>
       </ul>
