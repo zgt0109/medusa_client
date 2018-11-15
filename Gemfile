@@ -58,7 +58,8 @@ gem 'fileutils'
 gem 'rubyzip', '~> 1.2', '>= 1.2.2'
 gem 'zip-zip'
 gem 'ancestry'
-gem 'ancestry-treeview'
+gem "better_errors"
+gem "binding_of_caller"
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -77,8 +78,6 @@ group :development do
   gem 'annotate', '~> 2.7', '>= 2.7.4'
   gem 'pry-rails', '~> 0.3.6'
 
-  gem "better_errors"
-  gem "binding_of_caller"
 
   gem 'capistrano-rails', '~> 1.4'
   gem 'capistrano3-puma', '~> 3.1', '>= 3.1.1'
