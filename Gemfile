@@ -54,7 +54,6 @@ gem 'will_paginate-bootstrap'
 
 gem 'rails-i18n', '~> 5.1'
 gem 'awesome_print'
-gem 'fileutils'
 gem 'rubyzip', '~> 1.2', '>= 1.2.2'
 gem 'zip-zip'
 gem 'ancestry'
