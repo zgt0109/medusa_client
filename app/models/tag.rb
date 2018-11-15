@@ -28,7 +28,7 @@ class Tag < ApplicationRecord
   validates :name, presence: {message: "不能为空"}, uniqueness: { scope: :product_id, message: "已经存在"}
   validates :content, presence: {message: "不能为空"}
   belongs_to :product
-  has_many :tag_attachments
+  has_one :tag_attachment
 
   scope :which_product, ->(product) { where(:product_id => product) unless product.blank? }
 

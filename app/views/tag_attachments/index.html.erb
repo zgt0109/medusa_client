@@ -1,27 +1,23 @@
-<%= render 'head'  %>
+<div class="row">
+  <div class="col-lg-3 mb-10">
+    <%= render 'head'  %>
+  </div>
+  <div class="col-lg-9">
+    <div class="page-header">
+      <h3><%=t '.title', :default => "附件结构" %></h3>
+    </div>
 
-<div class="page-header">
-  <h1><%=t '.title', :default => "附件列表" %></h1>
-</div>
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th width="10%">文件名</th>
-      <th width="15%">所属目录</th>
-      <th width="50%" class="text-left">文件URL</th>
-      <th width="15%" class="text-left">添加时间</th>
-      <th width="10%">操作</th>
-    </tr>
-  </thead>
-  <tbody id="tagsTableTbody">
-    <%= render @tag_attachments  %>
-  </tbody>
-</table>
+    <div id="tree" class="treeview">
+    </div>
+  </div><!--/span-->
+</div><!--/row-->
 
-<div class="bs-component">
-  <%= will_paginate @tag_attachments, renderer: BootstrapPagination::Rails %>
-</div>
+<script>
+  function getTree() {
+    // Some logic to retrieve, or generate tree structure
+    var tree = <%= @tree %>
+    return tree;
+  }
 
-<%= link_to new_tag_attachment_path(tag_id: @tag.id), class: "btn btn-primary f-s-12" do %>
-  <i class="fa fa-plus m-r-xs"></i>添加
-<% end %>
+  $('#tree').treeview({data: getTree()});
+</script>

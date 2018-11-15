@@ -1,8 +1,9 @@
 <%= form_for @tag_attachment, method: :post, url: tag_attachments_path(tag_id: @tag.id) do |f| %>
+
     <div class="form-group">
-        <%= f.label "目录", :class => 'control-label' %>
+        <%= f.label "上传文件", :class => 'control-label' %>
     <div class="controls">
-        <%= f.text_field :attachment_path, :class => 'form-control', :placeholder => "请输入文件层级目录", required: true, autofocus: true %>
+        <%= f.file_field :file, :class => 'form-control', required: true, autofocus: true %>
     </div>
     </div>
 
@@ -10,13 +11,6 @@
         <%= f.label "备注", :class => 'control-label' %>
     <div class="controls">
         <%= f.text_area :remark, :class => 'form-control' %>
-    </div>
-    </div>
-
-    <div class="form-group">
-        <%= f.label "上传文件", :class => 'control-label' %>
-    <div class="controls">
-        <%= f.file_field :file, :class => 'form-control' %>
     </div>
     </div>
 

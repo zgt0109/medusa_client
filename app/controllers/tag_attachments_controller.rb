@@ -5,7 +5,9 @@ class TagAttachmentsController < ApplicationController
   def index
     @tag = Tag.find params[:tag_id]
     @product = @tag.product
-    @tag_attachments = @tag.tag_attachments.page(params[:page] || 1).per_page(params[:per_page] || 10).order("id desc")
+    @categories = Category.where(tag_attachment_id: @tag.tag_attachment.id)
+    @tree = @categories.select(:id,:text,:ancestry).arrange_serializable.to_json
+    @tree = @tree.gsub("children", "nodes").gsub(",\"nodes\":[]","").html_safe
   end
 
   def show
@@ -46,7 +48,7 @@ class TagAttachmentsController < ApplicationController
 
   def destroy
     @valid =  @tag_attachment.destroy
-
+    # @tag_attachment.file.purge_later()
     if @valid
       redirect_to tag_attachments_path(tag_id: @tag_attachment.tag_id), notice: '删除成功'
     else

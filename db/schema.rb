@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_23_060308) do
+ActiveRecord::Schema.define(version: 2018_11_15_073610) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
@@ -34,15 +34,17 @@ ActiveRecord::Schema.define(version: 2018_10_23_060308) do
   end
 
   create_table "categories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", comment: "结构分类", force: :cascade do |t|
-    t.bigint "tag_id", comment: "所属版本"
-    t.string "title", comment: "分类名"
+    t.bigint "tag_attachment_id", comment: "所属版本"
+    t.string "text"
     t.string "file_name", comment: "文件名"
     t.string "relative_path", comment: "文件相对路径"
+    t.datetime "deleted_at", comment: "删除时间"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "ancestry"
+    t.integer "kb_size"
     t.index ["ancestry"], name: "index_categories_on_ancestry"
-    t.index ["tag_id"], name: "index_categories_on_tag_id"
+    t.index ["tag_attachment_id"], name: "index_categories_on_tag_attachment_id"
   end
 
   create_table "products", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", comment: "客户端软件产品", force: :cascade do |t|
@@ -93,7 +95,7 @@ ActiveRecord::Schema.define(version: 2018_10_23_060308) do
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
-  add_foreign_key "categories", "tags"
+  add_foreign_key "categories", "tag_attachments"
   add_foreign_key "tag_attachments", "tags"
   add_foreign_key "tags", "products"
 end
