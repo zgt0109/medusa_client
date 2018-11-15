@@ -26,7 +26,7 @@ class TagAttachment < ApplicationRecord
   
   belongs_to :tag
   has_one_attached :file
-  has_one :category
+  has_many :categories
 
   scope :which_tag, ->(tag) { where(:tag_id => tag) unless tag.blank? }
 
@@ -37,14 +37,14 @@ class TagAttachment < ApplicationRecord
     split_path = file_path.split('/')
     if which_type == 1
       if split_path.size == 1
-        Category.find_or_create_by(title: split_path.first, file_name: split_path.first, relative_path: file_path, tag_attachment_id: self.id)
+        Category.find_or_create_by(text: split_path.first, file_name: split_path.first, relative_path: file_path, tag_attachment_id: self.id, mark: which_type)
       else
-        p_category = Category.find_by(title: split_path.at(split_path.size-2), tag_attachment_id: self.id)
-        p_category.children.create(title: split_path.at(split_path.size-1), file_name: split_path.at(split_path.size-1), relative_path: file_path, tag_attachment_id: self.id)
+        p_category = Category.find_by(text: split_path.at(split_path.size-2), tag_attachment_id: self.id)
+        p_category.children.create(text: split_path.at(split_path.size-1), file_name: split_path.at(split_path.size-1), relative_path: file_path, tag_attachment_id: self.id, mark: which_type)
       end
     else
-      p_category = Category.find_by(title: split_path.at(split_path.size-2), tag_attachment_id: self.id)
-      p_category.children.create(title: split_path.at(split_path.size-1), file_name: split_path.at(split_path.size-1), relative_path: file_path, tag_attachment_id: self.id)
+      p_category = Category.find_by(text: split_path.at(split_path.size-2), tag_attachment_id: self.id)
+      p_category.children.create(text: split_path.at(split_path.size-1), file_name: split_path.at(split_path.size-1), relative_path: file_path, tag_attachment_id: self.id, mark: which_type)
     end
   end
 

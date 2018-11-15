@@ -14,6 +14,8 @@
   <dd class="text-primary lead"><%= @tag.name %></dd>
 </dl>
 <hr/>
-<%= link_to new_tag_attachment_path(tag_id: @tag.id), class: "btn btn-primary f-s-12" do %>
-  <i class="fa fa-plus m-r-xs"></i>附件
+<% unless @tag.tag_attachment.present? %>
+  <%= link_to new_tag_attachment_path(tag_id: @tag.id), class: "btn btn-primary f-s-12" do %>
+    <i class="fa fa-plus m-r-xs"></i>附件
+  <% end %>
 <% end %>

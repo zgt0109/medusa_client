@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_11_15_073610) do
+ActiveRecord::Schema.define(version: 2018_11_15_094818) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
@@ -43,6 +43,7 @@ ActiveRecord::Schema.define(version: 2018_11_15_073610) do
     t.datetime "updated_at", null: false
     t.string "ancestry"
     t.integer "kb_size"
+    t.integer "mark", comment: "标记(1目录,2文件)"
     t.index ["ancestry"], name: "index_categories_on_ancestry"
     t.index ["tag_attachment_id"], name: "index_categories_on_tag_attachment_id"
   end
