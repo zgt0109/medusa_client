@@ -16,22 +16,22 @@ class UpgradesController < ApplicationController
           Rails.logger.debug("请求的IP地址是：#{request.remote_ip}")
           if remote_ips.split(',').include?(request.remote_ip)
             _hash = {
-              file_count: tag.tag_attachment.blank? ? "" : tag.tag_attachment.categories.where(mark: 2).size,
-              kb_size: tag.tag_attachment.blank? ? "" : tag.tag_attachment.file.byte_size/1024,
+              file_count: tag.tag_attachment.blank? ? 0 : tag.tag_attachment.categories.where(mark: 2).size,
+              kb_size: tag.tag_attachment.blank? ? 0 : tag.tag_attachment.file.byte_size/1024,
               content: tag.try(:content)
             }
-            _tags << _hash
+            _tags << {"#{tag.id}": _hash}
             # render json: {code: "00", message: "客户端需要更新", content: tag.try(:content)}, status: 200
           else
             render json: {code: "03", message: "客户端ip不在白名单内"}, status: 200 and return
           end
         else
           _hash = {
-            file_count: tag.tag_attachment.blank? ? "" : tag.tag_attachment.categories.where(mark: 2).size,
-            kb_size: tag.tag_attachment.blank? ? "" : tag.tag_attachment.file.byte_size/1024,
+            file_count: tag.tag_attachment.blank? ? 0 : tag.tag_attachment.categories.where(mark: 2).size,
+            kb_size: tag.tag_attachment.blank? ? 0 : tag.tag_attachment.file.byte_size/1024,
             content: tag.try(:content)
           }
-          _tags << _hash
+          _tags << {"#{tag.id}": _hash}
         end
       end
       tag_hash = {code: "00", message: "客户端需要更新", result: _tags}
