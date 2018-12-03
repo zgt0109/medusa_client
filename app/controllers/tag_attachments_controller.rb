@@ -20,13 +20,21 @@ class TagAttachmentsController < ApplicationController
   end
 
   def create
+    @tag = Tag.find params[:tag_id]
+    @product = @tag.product
+    
     @tag_attachment = TagAttachment.new(tag_attachment_params)
     @tag_attachment.name = params[:tag_attachment][:file].original_filename
     @tag_attachment.tag_id = params["tag_id"]
-    if @tag_attachment.save
-      redirect_to tag_attachments_path(tag_id: @tag_attachment.tag_id), notice: '新增成功'
-    else
-      render 'new'
+
+    respond_to do |format|
+      if @tag_attachment.save
+        format.html { redirect_to tag_attachments_path(tag_id: @tag_attachment.tag_id), notice: '新增成功' }
+        format.json { render :show, status: :created, location: @tag_attachment }
+      else
+        format.html { render :new }
+        format.json { render json: @tag_attachment.errors, status: :unprocessable_entity }
+      end
     end
   end
 

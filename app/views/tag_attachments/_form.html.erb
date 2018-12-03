@@ -1,9 +1,23 @@
 <%= form_for @tag_attachment, method: :post, url: tag_attachments_path(tag_id: @tag.id) do |f| %>
+    <% if @tag_attachment.errors.any? %>
+        <div id="error_expl" class="panel panel-danger">
+        <div class="panel-heading">
+            <h3 class="panel-title"><%= pluralize(@tag_attachment.errors.count, "错误如下：") %></h3>
+        </div>
+        <div class="panel-body">
+            <ul>
+            <% @tag_attachment.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+            <% end %>
+            </ul>
+        </div>
+        </div>
+    <% end %>
 
     <div class="form-group">
         <%= f.label "上传文件", :class => 'control-label' %>
     <div class="controls">
-        <%= f.file_field :file, :class => 'form-control', required: true, autofocus: true %>
+        <%= f.file_field :file, :class => 'form-control', required: true, autofocus: true, accept: 'application/zip' %>
     </div>
     </div>
 

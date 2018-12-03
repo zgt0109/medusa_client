@@ -30,9 +30,17 @@ class TagAttachment < ApplicationRecord
 
   scope :which_tag, ->(tag) { where(:tag_id => tag) unless tag.blank? }
 
+  validate :check_file, on: :create
+
   after_create :g_zip_file
 
   private 
+  def check_file
+    if self.name.split('.').last != 'zip'
+      errors.add(:file, "请上传后缀为zip的压缩包")
+    end
+  end
+
   def g_category(file_path, which_type)
     split_path = file_path.split('/')
     if which_type == 1
@@ -54,7 +62,6 @@ class TagAttachment < ApplicationRecord
     attachments_path = "#{Rails.root}/public/tags/#{self.tag_id}/"
     extract_directory = attachments_path
     FileUtils.mkdir_p(extract_directory) unless File.exist?(extract_directory)
-    binding.pry
     Zip::File.open("#{Rails.root}/storage/#{key.first(2)}/#{key.first(4).last(2)}/#{key}") do |zip_file|
       zip_file.each do |entry|
         next if entry.name =~ /__MACOSX/ or entry.name =~ /\.DS_Store/
