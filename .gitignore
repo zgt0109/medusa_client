@@ -16,7 +16,7 @@
 # Ignore uploaded files in development
 /storage/*
 !/storage/.keep
-public/tags/
+public/*
 
 /node_modules
 /yarn-error.log

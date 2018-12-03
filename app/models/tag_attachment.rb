@@ -59,7 +59,7 @@ class TagAttachment < ApplicationRecord
   def g_zip_file
     # "#{Rails.root}/storage/dY/Cx/dYCx5pvA879Zc4WPVN3DDToz"
     key = self.file.key
-    attachments_path = "#{Rails.root}/public/tags/#{self.tag_id}/"
+    attachments_path = "#{Rails.root}/public/products/#{self.tag.product_id}/tags/#{self.tag_id}/"
     extract_directory = attachments_path
     FileUtils.mkdir_p(extract_directory) unless File.exist?(extract_directory)
     Zip::File.open("#{Rails.root}/storage/#{key.first(2)}/#{key.first(4).last(2)}/#{key}") do |zip_file|
