@@ -23,7 +23,7 @@
 class TagAttachment < ApplicationRecord
   belongs_to :tag
   has_one_attached :file
-  has_many :categories
+  has_many :categories, dependent: :destroy
 
   scope :which_tag, ->(tag) { where(:tag_id => tag) unless tag.blank? }
 

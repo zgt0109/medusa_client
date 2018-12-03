@@ -13,6 +13,15 @@
 #
 
 class Product < ApplicationRecord
-    has_many :tags
+    has_many :tags, dependent: :destroy
     validates :name, presence: {message: "不能为空"}, uniqueness: {message: "已经存在"}
+
+    after_destroy :destroy_all
+
+    def destroy_all
+      # 删除产品下面的所有版本以及 版本附带删除版本下面上传的附件
+      attachments_path = "#{Rails.root}/public/products/#{self.id}"
+      extract_directory = attachments_path
+      FileUtils.rm_rf(extract_directory) if File.exist?(extract_directory)
+    end
 end

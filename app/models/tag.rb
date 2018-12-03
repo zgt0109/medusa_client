@@ -26,11 +26,20 @@ class Tag < ApplicationRecord
   validates :name, presence: {message: "不能为空"}, uniqueness: { scope: :product_id, message: "已经存在"}
   validates :content, presence: {message: "不能为空"}
   belongs_to :product
-  has_one :tag_attachment
+  has_one :tag_attachment, dependent: :destroy
 
   scope :which_product, ->(product) { where(:product_id => product) unless product.blank? }
 
   validate :limit_remote_ip_size, on: [:create, :update]
+
+  after_destroy :destroy_all
+
+  def destroy_all
+    # 删除版本附带删除版本下面上传的附件
+    attachments_path = "#{Rails.root}/public/products/#{self.product_id}/tags/#{self.id}/"
+    extract_directory = attachments_path
+    FileUtils.rm_rf(extract_directory) if File.exist?(extract_directory)
+  end
  
   def limit_remote_ip_size
     if remote_ip.present?
