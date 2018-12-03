@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_11_15_094818) do
+ActiveRecord::Schema.define(version: 2018_12_03_084353) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
@@ -38,7 +38,6 @@ ActiveRecord::Schema.define(version: 2018_11_15_094818) do
     t.string "text"
     t.string "file_name", comment: "文件名"
     t.string "relative_path", comment: "文件相对路径"
-    t.datetime "deleted_at", comment: "删除时间"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "ancestry"
@@ -52,7 +51,6 @@ ActiveRecord::Schema.define(version: 2018_11_15_094818) do
     t.string "name", limit: 50, comment: "软件名称"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.datetime "deleted_at"
     t.index ["name"], name: "index_products_on_name"
   end
 
@@ -62,7 +60,6 @@ ActiveRecord::Schema.define(version: 2018_11_15_094818) do
     t.string "file", comment: "文件"
     t.string "remark", comment: "备注"
     t.string "attachment_path", comment: "附件相对路径"
-    t.datetime "deleted_at", comment: "附件删除时间"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["tag_id"], name: "index_tag_attachments_on_tag_id"
@@ -73,7 +70,6 @@ ActiveRecord::Schema.define(version: 2018_11_15_094818) do
     t.string "name", limit: 50, comment: "版本名称"
     t.boolean "is_public", default: false, comment: "是否发布"
     t.string "remote_ip", comment: "ip白名单"
-    t.datetime "deleted_at", comment: "删除时间"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.text "content", comment: "版本更新内容"

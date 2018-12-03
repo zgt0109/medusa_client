@@ -42,6 +42,10 @@ class TagsController < ApplicationController
 
   def destroy
     @valid =  @tag.destroy
+    # 删除版本附带删除版本下面上传的附件
+    attachments_path = "#{Rails.root}/public/products/#{@tag.product_id}/tags/#{@tag.id}/"
+    extract_directory = attachments_path
+    FileUtils.rm_rf(extract_directory) if File.exist?(extract_directory)
 
     if @valid
       redirect_to tags_path(product_id: @tag.product_id), notice: '删除成功'

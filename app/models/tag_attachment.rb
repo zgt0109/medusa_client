@@ -4,7 +4,6 @@
 #
 #  id                      :bigint(8)        not null, primary key
 #  attachment_path(附件相对路径) :string(255)
-#  deleted_at(附件删除时间)      :datetime
 #  file(文件)                :string(255)
 #  name(名字)                :string(255)
 #  remark(备注)              :string(255)
@@ -22,8 +21,6 @@
 #
 
 class TagAttachment < ApplicationRecord
-  acts_as_paranoid
-  
   belongs_to :tag
   has_one_attached :file
   has_many :categories

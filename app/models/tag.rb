@@ -3,7 +3,7 @@
 # Table name: tags
 #
 #  id                  :bigint(8)        not null, primary key
-#  deleted_at(删除时间)    :datetime
+#  content(版本更新内容)     :text(65535)
 #  is_public(是否发布)     :boolean          default(FALSE)
 #  name(版本名称)          :string(50)
 #  remote_ip(ip白名单)    :string(255)
@@ -23,8 +23,6 @@
 #
 
 class Tag < ApplicationRecord
-  acts_as_paranoid
-
   validates :name, presence: {message: "不能为空"}, uniqueness: { scope: :product_id, message: "已经存在"}
   validates :content, presence: {message: "不能为空"}
   belongs_to :product

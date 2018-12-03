@@ -4,9 +4,9 @@
 #
 #  id                      :bigint(8)        not null, primary key
 #  ancestry                :string(255)
-#  deleted_at(删除时间)        :datetime
 #  file_name(文件名)          :string(255)
 #  kb_size                 :integer
+#  mark(标记(1目录,2文件))       :integer
 #  relative_path(文件相对路径)   :string(255)
 #  text                    :string(255)
 #  created_at              :datetime         not null

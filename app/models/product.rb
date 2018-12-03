@@ -3,7 +3,6 @@
 # Table name: products
 #
 #  id           :bigint(8)        not null, primary key
-#  deleted_at   :datetime
 #  name(软件名称)   :string(50)
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
@@ -14,8 +13,6 @@
 #
 
 class Product < ApplicationRecord
-    acts_as_paranoid
-
     has_many :tags
     validates :name, presence: {message: "不能为空"}, uniqueness: {message: "已经存在"}
 end
