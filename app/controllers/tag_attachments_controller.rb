@@ -6,8 +6,8 @@ class TagAttachmentsController < ApplicationController
     @tag = Tag.find params[:tag_id]
     @product = @tag.product
     @categories = Category.where(tag_attachment_id: @tag.tag_attachment.try(:id))
-    @tree = @categories.select(:id,:text,:ancestry).arrange_serializable.to_json
-    @tree = @tree.gsub("children", "nodes").gsub(",\"nodes\":[]","").html_safe
+    @tree = @categories.select(:id,:text,:ancestry,:mark).arrange_serializable.to_json
+    @tree = @tree.gsub("children", "nodes").gsub(",\"mark\":2,\"nodes\":[]","").html_safe
   end
 
   def show
