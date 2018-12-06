@@ -30,11 +30,10 @@ class TagsController < ApplicationController
   end
 
   def update
-    _hash = tag_params.merge(is_public: params[:is_public])
-    if @tag.update(_hash)
+    if @tag.update(tag_params)
       redirect_to tags_path(product_id: @tag.product_id), notice: '编辑成功'
     else
-      render :edit 
+      render :edit
     end
   end
 
