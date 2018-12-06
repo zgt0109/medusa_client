@@ -17,8 +17,6 @@ class TagsController < ApplicationController
 
   def create
     @tag = Tag.new(tag_params)
-    @tag.is_public = params[:is_public]
-    @tag.product_id = params[:product_id]
 
     if @tag.save
       redirect_to tags_path(product_id: @tag.product_id), notice: '新增成功'
@@ -59,6 +57,6 @@ class TagsController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def tag_params
-    params.require(:tag).permit(:product_id, :name, :content, :is_public, :remote_ip)
+    params.require(:tag).permit(:product_id, :name, :content, :is_public, :remote_ip, :force_update, :bootstrap)
   end
 end

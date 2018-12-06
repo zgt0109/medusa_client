@@ -3,7 +3,9 @@
 # Table name: tags
 #
 #  id                  :bigint(8)        not null, primary key
+#  bootstrap(主程序路径)    :string(255)
 #  content(版本更新内容)     :text(65535)
+#  force_update(强制更新)  :boolean
 #  is_public(是否发布)     :boolean          default(FALSE)
 #  name(版本名称)          :string(50)
 #  remote_ip(ip白名单)    :string(255)
