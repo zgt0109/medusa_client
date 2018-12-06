@@ -22,17 +22,20 @@
         <%= f.text_field :name, :class => 'form-control', :placeholder => "版本名称", required: true, autofocus: true %>
     </div>
     </div>
-    <div class="form-group">
-    <%= f.label "是否发布", :class => 'control-label' %>
+
+    <div class= "form-group">
+    <%= f.label :is_public, '是否发布', :class => 'control-label' %>
     <div class="controls">
-        <%= select_tag "tag[is_public]", options_for_select([['是', 1], ['否', 0]], 1), :class => 'form-control' %>
+    <%= f.radio_button :is_public, 1, {checked: true}%> 是
+    <%= f.radio_button :is_public, 0, {}%> 否
     </div>
     </div>
 
-    <div class="form-group">
-    <%= f.label "是否强制更新", :class => 'control-label' %>
+    <div class= "form-group">
+    <%= f.label :force_update, '是否强制更新', :class => 'control-label' %>
     <div class="controls">
-        <%= select_tag "tag[force_update]", options_for_select([['是', 1], ['否', 0]], 1), :class => 'form-control' %>
+    <%= f.radio_button :force_update, 1, {checked: true}%> 是
+    <%= f.radio_button :force_update, 0, {}%> 否
     </div>
     </div>
 
