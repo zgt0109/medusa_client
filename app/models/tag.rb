@@ -57,4 +57,8 @@ class Tag < ApplicationRecord
   def return_yes_or_no(tag)
     tag.is_public.present? ? "是" : "否"
   end
+
+  def return_force_update_yes_or_no(tag)
+    tag.force_update.present? ? "是" : "否"
+  end
 end
