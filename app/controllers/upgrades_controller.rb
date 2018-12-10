@@ -16,13 +16,14 @@ class UpgradesController < ApplicationController
         if remote_ips.present?
           if remote_ips.split(',').include?(request.remote_ip)
             _hash = {
+              ver: "Ver_#{tag.name}",
               file_count: tag.tag_attachment.blank? ? 0 : tag.tag_attachment.categories.where(mark: 2).size,
               kb_size: tag.tag_attachment.blank? ? 0 : tag.tag_attachment.file.byte_size/1024,
               bootstrap: tag.try(:bootstrap),
               force_update: tag.try(:force_update),
               content: tag.try(:content)
             }
-            _tags << {"Ver_#{tag.name}": _hash}
+            _tags << _hash
             # render json: {code: "00", message: "客户端需要更新", content: tag.try(:content)}, status: 200
           else
             # render json: {code: "03", message: "客户端ip不在白名单内"}, status: 200 and return
@@ -30,13 +31,14 @@ class UpgradesController < ApplicationController
           end
         else
           _hash = {
+            ver: "Ver_#{tag.name}",
             file_count: tag.tag_attachment.blank? ? 0 : tag.tag_attachment.categories.where(mark: 2).size,
             kb_size: tag.tag_attachment.blank? ? 0 : tag.tag_attachment.file.byte_size/1024,
             bootstrap: tag.try(:bootstrap),
             force_update: tag.try(:force_update),
             content: tag.try(:content)
           }
-          _tags << {"Ver_#{tag.name}": _hash}
+          _tags << _hash
         end
       end
       tag_hash = {code: "00", message: "客户端需要更新", result: _tags}
