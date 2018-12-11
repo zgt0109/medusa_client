@@ -69,7 +69,7 @@ class UpgradesController < ApplicationController
           categories.each do |categorie|
             categories_hash = {
               name: categorie.text,
-              url: categorie.mark==1 ? "" : "http://139.198.123.199/tags/#{categorie.tag_attachment.tag_id}/#{categorie.relative_path}",
+              url: categorie.mark==1 ? "" : "http://139.198.123.199/products/#{categorie.tag_attachment.tag.product_id}/tags/#{categorie.tag_attachment.tag_id}/#{categorie.relative_path}",
               attachment_path: categorie.relative_path,
               created_at: categorie.created_at.strftime('%Y-%m-%d %H:%M')
             }
