@@ -43,9 +43,11 @@ class Tag < ApplicationRecord
     FileUtils.rm_rf(extract_directory) if File.exist?(extract_directory)
 
     # 删除storage下面的文件
-    key = self.tag_attachment.file.key
-    storage_file_path = "#{Rails.root}/storage/#{key.first(2)}/#{key.first(4).last(2)}/#{key}"
-    FileUtils.rm_rf(storage_file_path) if File.exist?(storage_file_path)
+    if self.tag_attachment.present?
+      key = self.tag_attachment.file.key
+      storage_file_path = "#{Rails.root}/storage/#{key.first(2)}/#{key.first(4).last(2)}/#{key}"
+      FileUtils.rm_rf(storage_file_path) if File.exist?(storage_file_path)
+    end
   end
  
   def limit_remote_ip_size
