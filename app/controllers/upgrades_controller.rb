@@ -16,7 +16,7 @@ class UpgradesController < ApplicationController
         if remote_ips.present?
           if remote_ips.split(',').include?(request.remote_ip)
             _hash = {
-              ver: "Ver_#{tag.name}",
+              ver: "#{tag.name}",
               file_count: tag.tag_attachment.blank? ? 0 : tag.tag_attachment.categories.where(mark: 2).size,
               kb_size: tag.tag_attachment.blank? ? 0 : tag.tag_attachment.file.byte_size/1024,
               bootstrap: tag.try(:bootstrap),
@@ -31,7 +31,7 @@ class UpgradesController < ApplicationController
           end
         else
           _hash = {
-            ver: "Ver_#{tag.name}",
+            ver: "#{tag.name}",
             file_count: tag.tag_attachment.blank? ? 0 : tag.tag_attachment.categories.where(mark: 2).size,
             kb_size: tag.tag_attachment.blank? ? 0 : tag.tag_attachment.file.byte_size/1024,
             bootstrap: tag.try(:bootstrap),
@@ -78,7 +78,7 @@ class UpgradesController < ApplicationController
 
           tag_hash = {
             name: tag.product.name,
-            version: "Ver_#{tag.name}",
+            version: "#{tag.name}",
             kb_size: tag.tag_attachment.file.byte_size/1024,
             bootstrap: tag.try(:bootstrap),
             force_update: tag.try(:force_update),
