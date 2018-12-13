@@ -63,4 +63,9 @@ class Tag < ApplicationRecord
   def return_force_update_yes_or_no(tag)
     tag.force_update.present? ? "是" : "否"
   end
+
+  def return_attachment_dir_size(tag)
+    attachments_path = "#{Rails.root}/public/products/#{self.product_id}/tags/#{self.id}/"
+    attachment_size = `du -sk #{attachments_path} | awk '{print $1}'`.to_i
+  end
 end

@@ -18,7 +18,7 @@ class UpgradesController < ApplicationController
             _hash = {
               ver: "#{tag.name}",
               file_count: tag.tag_attachment.blank? ? 0 : tag.tag_attachment.categories.where(mark: 2).size,
-              kb_size: tag.tag_attachment.blank? ? 0 : tag.tag_attachment.file.byte_size/1024,
+              kb_size: tag.tag_attachment.blank? ? 0 : tag.return_attachment_dir_size(tag),
               bootstrap: tag.try(:bootstrap),
               force_update: tag.try(:force_update),
               content: tag.try(:content)
@@ -33,7 +33,7 @@ class UpgradesController < ApplicationController
           _hash = {
             ver: "#{tag.name}",
             file_count: tag.tag_attachment.blank? ? 0 : tag.tag_attachment.categories.where(mark: 2).size,
-            kb_size: tag.tag_attachment.blank? ? 0 : tag.tag_attachment.file.byte_size/1024,
+            kb_size: tag.tag_attachment.blank? ? 0 : tag.return_attachment_dir_size(tag),
             bootstrap: tag.try(:bootstrap),
             force_update: tag.try(:force_update),
             content: tag.try(:content)
@@ -79,7 +79,7 @@ class UpgradesController < ApplicationController
           tag_hash = {
             name: tag.product.name,
             version: "#{tag.name}",
-            kb_size: tag.tag_attachment.file.byte_size/1024,
+            kb_size: tag.return_attachment_dir_size(tag),
             bootstrap: tag.try(:bootstrap),
             force_update: tag.try(:force_update),
             tag_attachment: _categories
