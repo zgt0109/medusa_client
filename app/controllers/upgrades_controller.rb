@@ -15,6 +15,8 @@ class UpgradesController < ApplicationController
         remote_ips = tag.try(:remote_ip)
         if remote_ips.present?
           if remote_ips.split(',').include?(request.remote_ip)
+            return render_json(code: "05", message: "启动器版本过低", status: 200) if tag.starter_ver.present? && tag.starter_ver != upgrade_params[:starter_ver]
+
             _hash = {
               ver: "#{tag.name}",
               starter_ver: tag.starter_ver,
@@ -31,6 +33,8 @@ class UpgradesController < ApplicationController
             next
           end
         else
+          return render_json(code: "05", message: "启动器版本过低", status: 200) if tag.starter_ver.present? && tag.starter_ver != upgrade_params[:starter_ver]
+
           _hash = {
             ver: "#{tag.name}",
             starter_ver: tag.starter_ver,
@@ -100,6 +104,6 @@ class UpgradesController < ApplicationController
     end
 
     def upgrade_params
-      params.permit(:name, :version)
+      params.permit(:name, :version, :starter_ver)
     end
 end
