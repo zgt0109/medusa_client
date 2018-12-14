@@ -1,5 +1,6 @@
 <tr id="tag_<%= tag.id %>">
   <td id="tag_<%= tag.id %>_name"><%= link_to tag.name, tag_attachments_path(tag_id: tag.id) %></td>
+  <td id="tag_<%= tag.id %>_starter_ver"><%= tag.starter_ver %></td>
   <td id="tag_<%= tag.id %>_is_public" class="text-left"><%= tag.return_yes_or_no(tag) %></td>
   <td id="tag_<%= tag.id %>_force_update" class="text-left"><%= tag.return_force_update_yes_or_no(tag) %></td>
   <td id="tag_<%= tag.id %>_bootstrap" class="text-left"><%= tag.bootstrap %></td>

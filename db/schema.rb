@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_12_05_025515) do
+ActiveRecord::Schema.define(version: 2018_12_14_032733) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
@@ -68,6 +68,7 @@ ActiveRecord::Schema.define(version: 2018_12_05_025515) do
   create_table "tags", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", comment: "版本管理", force: :cascade do |t|
     t.bigint "product_id", comment: "客户端产品id"
     t.string "name", limit: 50, comment: "版本名称"
+    t.string "starter_ver", limit: 50, comment: "启动器版本"
     t.boolean "is_public", default: false, comment: "是否发布"
     t.string "remote_ip", comment: "ip白名单"
     t.datetime "created_at", null: false
