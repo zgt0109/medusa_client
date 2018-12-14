@@ -4,7 +4,7 @@ class TagsController < ApplicationController
 
   def index
     @product = Product.find_by(id: params[:product_id])
-    @tags = @product.tags.page(params[:page] || 1).per_page(params[:per_page] || 10).order(name: :desc)
+    @tags = @product.tags.page(params[:page] || 1).per_page(params[:per_page] || 10).order("id desc")
   end
 
   def show
