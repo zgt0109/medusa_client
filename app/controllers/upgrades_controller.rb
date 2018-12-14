@@ -5,7 +5,7 @@ class UpgradesController < ApplicationController
     return render_json(code: "01", message: "客户端软件不存在", status: 200) if @product.blank?
     tag = Tag.find_by(product_id: @product.id,name: upgrade_params[:version])
     return render_json(code: "02", message: "版本不存在", status: 200) if tag.blank?
-    tags = @product.tags.where(is_public: true).where.not(name: upgrade_params[:version]).where("id > ?", tag.id).order(name: :desc)
+    tags = @product.tags.where(is_public: true).where.not(name: upgrade_params[:version]).where("name > ?", tag.name).order(name: :desc)
 
     if tags.present?
       Rails.logger.debug("请求的IP地址是：#{request.remote_ip}")
