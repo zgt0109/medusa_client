@@ -61,7 +61,7 @@ class UpgradesController < ApplicationController
     else
       @tag = Tag.find_by(product_id: @product.id,name: upgrade_params[:version])
       return render_json(code: "02", message: "版本不存在", status: 200) if @tag.blank?
-      @tags = @product.tags.where(is_public: true).where.not(name: upgrade_params[:version]).where("id > ?", @tag.id).limit(1)
+      @tags = @product.tags.where(is_public: true).where.not(name: upgrade_params[:version]).where("name > ?", @tag.name).limit(1)
       if @tags.blank?
         return render_json(code: "04", message: "客户端已是最新版", status: 200)
       else
