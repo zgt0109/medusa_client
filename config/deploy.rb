@@ -45,4 +45,4 @@ append :linked_dirs, "storage", "log", "tmp/pids", "tmp/cache", "tmp/sockets", "
 # https://github.com/seuros/capistrano-puma
 set :nginx_sites_available_path, "/etc/nginx/sites-available"
 set :nginx_sites_enabled_path, "/etc/nginx/sites-enabled"
-set :nginx_server_name, "139.198.123.199"
+set :nginx_server_name, "106.12.25.168"
