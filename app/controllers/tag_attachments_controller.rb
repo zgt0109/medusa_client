@@ -29,7 +29,7 @@ class TagAttachmentsController < ApplicationController
 
     respond_to do |format|
       if @tag_attachment.save
-        tc = TagAttachment.find_by(name: @tag_attachment.name)
+        tc = TagAttachment.find_by(name: @tag_attachment.name, tag_id: @tag_attachment.tag_id)
         notice = tc.present? ? "新增成功" : "请检查压缩包内文件格式是否正确"
         format.html { redirect_to tag_attachments_path(tag_id: @tag_attachment.tag_id), notice: notice }
         format.json { render :show, status: :created, location: @tag_attachment }
