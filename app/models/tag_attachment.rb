@@ -59,20 +59,27 @@ class TagAttachment < ApplicationRecord
     attachments_path = "#{Rails.root}/public/products/#{self.tag.product_id}/tags/#{self.tag_id}/"
     extract_directory = attachments_path
     FileUtils.mkdir_p(extract_directory) unless File.exist?(extract_directory)
-    Zip::File.open("#{Rails.root}/storage/#{key.first(2)}/#{key.first(4).last(2)}/#{key}") do |zip_file|
-      zip_file.each do |entry|
-        next if entry.name =~ /__MACOSX/ or entry.name =~ /\.DS_Store/
-        if entry.directory?
-          logger.info "创建目录" 
-          entry.extract(File.join(extract_directory, entry::name))
-          g_category(entry.name, 1)
-        else
-          logger.info "创建文件" 
-          entry.extract(File.join(extract_directory, entry::name))
-          g_category(entry.name, 2)
+
+    begin
+      Zip::File.open("#{Rails.root}/storage/#{key.first(2)}/#{key.first(4).last(2)}/#{key}") do |zip_file|
+        zip_file.each do |entry|
+          next if entry.name =~ /__MACOSX/ or entry.name =~ /\.DS_Store/
+          if entry.directory?
+            logger.info "创建目录" 
+            entry.extract(File.join(extract_directory, entry::name))
+            g_category(entry.name, 1)
+          else
+            logger.info "创建文件" 
+            entry.extract(File.join(extract_directory, entry::name))
+            g_category(entry.name, 2)
+          end
         end
       end
+    rescue
+      FileUtils.rm_rf(extract_directory)
+      logger.info "创建目录失败，删除新增文件"
     end
+
     logger.info "解压文件完成！"
     
   end
