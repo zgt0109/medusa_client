@@ -1,0 +1,5 @@
+$("#newTagFormModal").modal('hide')
+$("#newTagFormModal").on('hidden.bs.modal', function(){
+  $("#newTagFormModal").remove()
+})
+window.location.reload();

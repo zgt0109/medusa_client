@@ -16,6 +16,7 @@
 # Ignore uploaded files in development
 /storage/*
 !/storage/.keep
+public/*
 
 /node_modules
 /yarn-error.log
@@ -30,3 +31,4 @@
 app/.DS_Store
 app/assets/.DS_Store
 app/assets/images/.DS_Store
+.vscode

@@ -1,0 +1,13 @@
+zh-CN:
+  activerecord:
+    models:
+      tag: 版本
+      product: 软件产品
+    attributes:
+      tag:
+         name: 版本号
+         content: 更新内容
+         is_public: 是否发布
+         remote_ip: IP白名单
+      product:
+        name: 软件名

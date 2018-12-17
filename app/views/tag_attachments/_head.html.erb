@@ -1,0 +1,21 @@
+<div class="page-header">
+  <%= link_to t('.back', :default => t("helpers.links.back")),
+              tags_path(product_id: @product.id), :class => 'btn btn-default'  %>
+</div>
+
+<dl class="dl-horizontal">
+  <dt class="lead"><strong>软件名:</strong></dt>
+  <dd class="text-primary lead"><%= @product.name %></dd>
+</dl>
+<hr/>
+
+<dl class="dl-horizontal">
+  <dt class="lead"><strong>当前版本:</strong></dt>
+  <dd class="text-primary lead"><%= @tag.name %></dd>
+</dl>
+<hr/>
+<% unless @tag.tag_attachment.present? %>
+  <%= link_to new_tag_attachment_path(tag_id: @tag.id), class: "btn btn-primary f-s-12" do %>
+    <i class="fa fa-plus m-r-xs"></i>附件
+  <% end %>
+<% end %>

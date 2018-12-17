@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '2.5.1'
+ruby '2.5.3'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.2.1'
@@ -22,7 +22,7 @@ gem 'jquery-rails'
 # Use CoffeeScript for .coffee assets and views
 gem 'coffee-rails', '~> 4.2'
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
-gem 'turbolinks', '~> 5'
+# gem 'turbolinks', '~> 5'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.5'
 # Use Redis adapter to run Action Cable in production
@@ -43,9 +43,22 @@ gem "therubyracer", platforms: :ruby
 
 # Bootstrap
 gem 'bootstrap-sass', '~> 3.3.7'
-gem 'bootswatch-rails'
 gem 'font-awesome-rails', '~> 4.7', '>= 4.7.0.4'
-gem 'sorcery'
+gem 'sorcery', '~> 0.12.0'
+
+gem 'sidekiq', '~> 5.1', '>= 5.1.3'
+gem 'paranoia', '~> 2.4', '>= 2.4.1'
+gem 'activestorage_qiniu', '~> 0.1.9'
+gem 'will_paginate', '~> 3.1', '>= 3.1.6'
+gem 'will_paginate-bootstrap'
+
+gem 'rails-i18n', '~> 5.1'
+gem 'awesome_print'
+gem 'rubyzip', '~> 1.2', '>= 1.2.2'
+gem 'zip-zip'
+gem 'ancestry'
+gem "better_errors"
+gem "binding_of_caller"
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -64,6 +77,10 @@ group :development do
   gem 'annotate', '~> 2.7', '>= 2.7.4'
   gem 'pry-rails', '~> 0.3.6'
 
+
+  gem 'capistrano-rails', '~> 1.4'
+  gem 'capistrano3-puma', '~> 3.1', '>= 3.1.1'
+  gem 'capistrano-sidekiq', '~> 1.0', '>= 1.0.2'
 end
 
 

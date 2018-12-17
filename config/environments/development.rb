@@ -1,4 +1,5 @@
 Rails.application.configure do
+  config.file_watcher = ActiveSupport::EventedFileUpdateChecker
   config.logger = Logger.new(config.paths["log"].first, 'daily') # 或 weekly,monthly
   # Settings specified here will take precedence over those in config/application.rb.
 
@@ -18,7 +19,9 @@ Rails.application.configure do
   if Rails.root.join('tmp', 'caching-dev.txt').exist?
     config.action_controller.perform_caching = true
 
-    config.cache_store = :memory_store
+    # config.cache_store = :memory_store
+    config.cache_store = :redis_cache_store, {url: ENV['MEDUSA_CLIENT_REDIS_CACHE_STORE']}
+
     config.public_file_server.headers = {
       'Cache-Control' => "public, max-age=#{2.days.to_i}"
     }
@@ -30,6 +33,7 @@ Rails.application.configure do
 
   # Store uploaded files on the local file system (see config/storage.yml for options)
   config.active_storage.service = :local
+  # config.active_storage.service = :qiniu
 
   # Don't care if the mailer can't send.
   config.action_mailer.raise_delivery_errors = false
@@ -50,6 +54,8 @@ Rails.application.configure do
   # number of complex assets.
   config.assets.debug = true
 
+  config.log_level = :debug
+
   # Suppress logger output for asset requests.
   config.assets.quiet = true
 
@@ -60,3 +66,5 @@ Rails.application.configure do
   # routes, locales, etc. This feature depends on the listen gem.
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 end
+
+Rails.application.routes.default_url_options = { host: "localhost:3000" }

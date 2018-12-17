@@ -1,0 +1,8 @@
+<tr id="product_<%= product.id %>">
+  <td id="product_<%= product.id %>_name"><%= link_to product.name, tags_path(product_id: product.id) %></td>
+  <td class="text-right">
+    <%= link_to "编辑", edit_product_path(product), class: 'btn btn-xs btn-default' %>
+    <%= link_to "删除", product_path(product), method: :delete, 'data-confirm': "不考虑一下了?", class: 'btn btn-xs btn-danger' %>
+  </td>
+</tr>
+

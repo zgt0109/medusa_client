@@ -1,0 +1,75 @@
+<%= form_for @tag, method: :post, url: tags_path(product_id: @product.id) do |f| %>
+    <% if @tag.errors.any? %>
+        <div id="error_expl" class="panel panel-danger">
+        <div class="panel-heading">
+            <h3 class="panel-title"><%= pluralize(@tag.errors.count, "错误如下：") %></h3>
+        </div>
+        <div class="panel-body">
+            <ul>
+            <% @tag.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+            <% end %>
+            </ul>
+        </div>
+        </div>
+    <% end %>
+
+    <%= hidden_field_tag("tag[product_id]", @product.id) %>
+
+    <div class="form-group">
+    <%= f.label "版本名称", :class => 'control-label' %>
+    <div class="controls">
+        <%= f.text_field :name, :class => 'form-control', :placeholder => "版本名称", required: true, autofocus: true %>
+    </div>
+    </div>
+
+    <div class="form-group">
+    <%= f.label "启动器版本", :class => 'control-label' %>
+    <div class="controls">
+        <%= f.text_field :starter_ver, :class => 'form-control', :placeholder => "启动器版本", required: true, autofocus: true %>
+    </div>
+    </div>
+
+    <div class= "form-group">
+    <%= f.label :is_public, '是否发布', :class => 'control-label' %>
+    <div class="controls">
+    <%= f.radio_button :is_public, 1, {checked: true}%> 是
+    <%= f.radio_button :is_public, 0, {}%> 否
+    </div>
+    </div>
+
+    <div class= "form-group">
+    <%= f.label :force_update, '是否强制更新', :class => 'control-label' %>
+    <div class="controls">
+    <%= f.radio_button :force_update, 1, {checked: true}%> 是
+    <%= f.radio_button :force_update, 0, {}%> 否
+    </div>
+    </div>
+
+    <div class="form-group">
+    <%= f.label "主程序路径", :class => 'control-label' %>
+    <div class="controls">
+        <%= f.text_field :bootstrap, :class => 'form-control', :placeholder => "主程序路径", required: true %>
+    </div>
+    </div>
+
+    <div class="form-group">
+    <%= f.label "IP白名单", :class => 'control-label' %>
+    <div class="controls">
+        <%= f.text_area :remote_ip, :class => 'form-control' %>
+    </div>
+    <p> <b>*</b> IP地址最多10个，以英文','分割</p>
+    </div>
+
+    <div class="form-group">
+    <%= f.label "版本更新内容", :class => 'control-label' %>
+    <div class="controls">
+        <%= f.text_area :content, :class => 'form-control', required: true, rows: 8 %>
+    </div>
+    </div>
+    
+    <div class="modal-footer">
+    <%= f.submit '保存', class: "btn btn-primary", data: { disable_with: '请稍等' } %>
+    <a class="btn btn-default" href="/tags?product_id=<%= @product.id %>">返回</a>
+    </div>
+<% end %>
